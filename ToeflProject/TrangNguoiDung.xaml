@@ -1,0 +1,47 @@
+﻿<Window x:Class="ToeflProject.TrangNguoiDung"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:nd="clr-namespace:ToeflProject"
+        Title="TrangNguoiDung" SizeToContent="WidthAndHeight" Closing="Window_Closing">
+    <Window.Resources>
+        <nd:NDImagePathConverter x:Key="NDImagePathConverter"></nd:NDImagePathConverter>
+        <nd:HinhAnhConverter x:Key="HinhAnhConverter"></nd:HinhAnhConverter>
+    </Window.Resources>
+    <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" x:Name="dataGridNguoiDung">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Mã ND" Binding="{Binding Path=MaND}"></DataGridTextColumn>
+            <DataGridTextColumn Header="Tên ND" Binding="{Binding Path=TenND}"></DataGridTextColumn>
+            <DataGridCheckBoxColumn Header="Nam?" Binding="{Binding Path=GioiTinh}"></DataGridCheckBoxColumn>
+            <DataGridTextColumn Header="Địa chỉ" Binding="{Binding Path=DiaChi}"></DataGridTextColumn>
+            <DataGridTemplateColumn Header="Ngày sinh">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=NgaySinh}"></TextBlock>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+                <DataGridTemplateColumn.CellEditingTemplate>
+                    <DataTemplate>
+                        <DatePicker SelectedDate="{Binding Path=NgaySinh}"></DatePicker>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellEditingTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="Mật khẩu" Binding="{Binding Path=MatKhau}"></DataGridTextColumn>
+            <DataGridTemplateColumn Header="Hình ảnh">
+                <DataGridTemplateColumn.CellEditingTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Path=HinhAnh, Mode=TwoWay, Converter={StaticResource ResourceKey=NDImagePathConverter}}"></TextBox>
+                            <Button Content="Chọn hình ảnh"></Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellEditingTemplate>
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Image Width="200" Source="{Binding Path=HinhAnh, Converter={StaticResource ResourceKey=HinhAnhConverter}}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridComboBoxColumn Header="Quyền hạn" x:Name="cboQuyen" DisplayMemberPath="TenQuyen" SelectedValuePath="MaQuyen" SelectedValueBinding="{Binding Path=MaQuyen}"></DataGridComboBoxColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+</Window>
