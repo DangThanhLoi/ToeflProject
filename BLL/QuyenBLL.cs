@@ -14,5 +14,8 @@ namespace BLL
         public IEnumerable<Quyen> LayTatCa() {
             return _context.Quyens.ToList<Quyen>();
         }
+        public Quyen LayQuyenTheoMa(int ma) {
+            return _context.Quyens.Where(q => q.MaQuyen.Equals(ma)).FirstOrDefault();
+        }
     }
 }

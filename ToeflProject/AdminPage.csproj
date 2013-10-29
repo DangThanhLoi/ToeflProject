@@ -59,8 +59,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DateTimeConverter.cs" />
     <Compile Include="HinhAnhConverter.cs" />
     <Compile Include="NDImagePathConverter.cs" />
+    <Compile Include="TenQuyenConverter.cs" />
     <Compile Include="TrangNguoiDung.xaml.cs">
       <DependentUpon>TrangNguoiDung.xaml</DependentUpon>
     </Compile>

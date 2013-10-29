@@ -8,13 +8,21 @@ using System.IO;
 
 namespace ToeflProject
 {
-    public class HinhAnhConverter :IValueConverter
+    public class HinhAnhConverter : IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            string image = value.ToString();
-            return new BitmapImage(new Uri(Path.Combine(Directory.GetCurrentDirectory(), @"Images\NguoiDung\") + image));
+            FileInfo fi;
+            try
+            {
+                fi = new FileInfo(TrangNguoiDung.IMAGE_NGUOIDUNG_DIRECTORY + "\\" + value.ToString());
+                if (!fi.Exists) throw new FileNotFoundException();
+            }
+            catch {
+                fi = new FileInfo(TrangNguoiDung.IMAGE_NGUOIDUNG_DIRECTORY + "\\default-male.jpg");
+            }
+            return new BitmapImage(new Uri(fi.FullName));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

@@ -2,23 +2,23 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Toefl">
   <DataContextMoniker Name="/ToeflDataContext" />
   <nestedChildShapes>
-    <classShape Id="f912b382-a0af-4ced-a6c5-ecd469877a0d" absoluteBounds="3.75, 0.5, 2, 1.26050048828125">
+    <classShape Id="ed55cca2-26ad-4eba-949b-803cd3da3c3e" absoluteBounds="4.75, 1.125, 2, 1.26050048828125">
       <DataClassMoniker Name="/ToeflDataContext/Quyen" />
       <nestedChildShapes>
-        <elementListCompartment Id="24327dc7-f287-4998-b8cc-dce266157518" absoluteBounds="3.7649999999999997, 0.96, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7a151220-66a5-4cf1-b4d0-652b30b7baec" absoluteBounds="4.765, 1.585, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8401025d-4a3c-4445-94b0-7ae104f2f943" absoluteBounds="3.75, 2.625, 2, 2.0822371419270831">
+    <classShape Id="e6ee709c-eca5-43f9-8b40-0f1f13028f58" absoluteBounds="2, 0.875, 2, 2.0822371419270831">
       <DataClassMoniker Name="/ToeflDataContext/NguoiDung" />
       <nestedChildShapes>
-        <elementListCompartment Id="e2cf3839-bbbb-48b1-8684-9d29062d3dc1" absoluteBounds="3.7649999999999997, 3.085, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f023e601-6366-46b4-912f-80c81d0492c8" absoluteBounds="2.015, 1.335, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.75 : 1.76050048828125); (4.75 : 2.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.75 : 1.75525024414063); (4 : 1.75525024414063)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ToeflDataContext/Quyen/Quyen_NguoiDung" />
       <nodes>
-        <classShapeMoniker Id="f912b382-a0af-4ced-a6c5-ecd469877a0d" />
-        <classShapeMoniker Id="8401025d-4a3c-4445-94b0-7ae104f2f943" />
+        <classShapeMoniker Id="ed55cca2-26ad-4eba-949b-803cd3da3c3e" />
+        <classShapeMoniker Id="e6ee709c-eca5-43f9-8b40-0f1f13028f58" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

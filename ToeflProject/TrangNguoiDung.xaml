@@ -6,8 +6,26 @@
     <Window.Resources>
         <nd:NDImagePathConverter x:Key="NDImagePathConverter"></nd:NDImagePathConverter>
         <nd:HinhAnhConverter x:Key="HinhAnhConverter"></nd:HinhAnhConverter>
+        <nd:TenQuyenConverter x:Key="TenQuyenConverter"></nd:TenQuyenConverter>
     </Window.Resources>
-    <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" x:Name="dataGridNguoiDung">
+    <DataGrid SelectionMode="Single" ItemsSource="{Binding}" AutoGenerateColumns="False" x:Name="dataGridNguoiDung">
+        <DataGrid.RowStyle>
+            <Style TargetType="{x:Type DataGridRow}">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="64" Source="{Binding Path=HinhAnh, Converter={StaticResource ResourceKey=HinhAnhConverter}}"/>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Path=TenND, StringFormat='Người dùng : {0}'}"></TextBlock>
+                                <TextBlock Text="{Binding Path=DiaChi, StringFormat='Địa chỉ : {0}'}"></TextBlock>
+                                <TextBlock Text="{Binding Path=NgaySinh, Converter={StaticResource ResourceKey=DateTimeConverter}, StringFormat='Ngày sinh : {0}'}"></TextBlock>
+                                <TextBlock Text="{Binding Path=Quyen, Converter={StaticResource ResourceKey=TenQuyenConverter}, StringFormat='Quyền hạn : {0}'}"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </DataGrid.RowStyle>
         <DataGrid.Columns>
             <DataGridTextColumn Header="Mã ND" Binding="{Binding Path=MaND}"></DataGridTextColumn>
             <DataGridTextColumn Header="Tên ND" Binding="{Binding Path=TenND}"></DataGridTextColumn>
@@ -16,7 +34,7 @@
             <DataGridTemplateColumn Header="Ngày sinh">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=NgaySinh}"></TextBlock>
+                        <TextBlock Text="{Binding Path=NgaySinh, Converter={StaticResource ResourceKey=DateTimeConverter}}"></TextBlock>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
                 <DataGridTemplateColumn.CellEditingTemplate>
@@ -27,17 +45,12 @@
             </DataGridTemplateColumn>
             <DataGridTextColumn Header="Mật khẩu" Binding="{Binding Path=MatKhau}"></DataGridTextColumn>
             <DataGridTemplateColumn Header="Hình ảnh">
-                <DataGridTemplateColumn.CellEditingTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding Path=HinhAnh, Mode=TwoWay, Converter={StaticResource ResourceKey=NDImagePathConverter}}"></TextBox>
-                            <Button Content="Chọn hình ảnh"></Button>
-                        </StackPanel>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellEditingTemplate>
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <Image Width="200" Source="{Binding Path=HinhAnh, Converter={StaticResource ResourceKey=HinhAnhConverter}}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="txtHinhAnh" Text="{Binding Path=HinhAnh, Mode=TwoWay}" IsReadOnly="True" Margin="2"></TextBox>
+                            <Button Content="Chọn hình ảnh" Margin="2" Click="Button_Click"></Button>
+                        </StackPanel>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>

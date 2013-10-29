@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Data;
-using System.IO;
-
+using BLL;
+using DAL;
 namespace ToeflProject
 {
-    public class NDImagePathConverter :IValueConverter
+    class TenQuyenConverter : IValueConverter
     {
+        QuyenBLL qBll = new QuyenBLL();
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            string image = value.ToString();
-            return Path.Combine(Directory.GetCurrentDirectory(), @"Images\NguoiDung\") + image;
+            Quyen q = (Quyen)value;
+            if (q == null) return "Not set";
+            return q.TenQuyen;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            string fullPath = value.ToString();
-            FileInfo fi = new FileInfo(fullPath);
-            return fi.Name;
+            throw new NotImplementedException();
         }
     }
 }
