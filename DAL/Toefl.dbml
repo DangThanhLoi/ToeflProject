@@ -21,4 +21,29 @@
       <Association Name="Quyen_NguoiDung" Member="Quyen" ThisKey="MaQuyen" OtherKey="MaQuyen" Type="Quyen" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.DeThi" Member="DeThis">
+    <Type Name="DeThi">
+      <Column Name="MaDe" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NgayThi" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="DeThi_PhanThi" Member="PhanThis" ThisKey="MaDe" OtherKey="MaDe" Type="PhanThi" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PhanThi" Member="PhanThis">
+    <Type Name="PhanThi">
+      <Column Name="MaPT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MaLoai" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaDe" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="PhanThi_ChuDe" Member="ChuDes" ThisKey="MaPT" OtherKey="MaPT" Type="ChuDe" />
+      <Association Name="DeThi_PhanThi" Member="DeThi" ThisKey="MaDe" OtherKey="MaDe" Type="DeThi" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChuDe" Member="ChuDes">
+    <Type Name="ChuDe">
+      <Column Name="MaCD" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Text" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Audio" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="MaPT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="PhanThi_ChuDe" Member="PhanThi" ThisKey="MaPT" OtherKey="MaPT" Type="PhanThi" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
 </Database>

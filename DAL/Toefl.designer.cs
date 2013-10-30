@@ -36,6 +36,15 @@ namespace DAL
     partial void InsertNguoiDung(NguoiDung instance);
     partial void UpdateNguoiDung(NguoiDung instance);
     partial void DeleteNguoiDung(NguoiDung instance);
+    partial void InsertDeThi(DeThi instance);
+    partial void UpdateDeThi(DeThi instance);
+    partial void DeleteDeThi(DeThi instance);
+    partial void InsertPhanThi(PhanThi instance);
+    partial void UpdatePhanThi(PhanThi instance);
+    partial void DeletePhanThi(PhanThi instance);
+    partial void InsertChuDe(ChuDe instance);
+    partial void UpdateChuDe(ChuDe instance);
+    partial void DeleteChuDe(ChuDe instance);
     #endregion
 		
 		public ToeflDataContext() : 
@@ -81,6 +90,30 @@ namespace DAL
 			get
 			{
 				return this.GetTable<NguoiDung>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DeThi> DeThis
+		{
+			get
+			{
+				return this.GetTable<DeThi>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PhanThi> PhanThis
+		{
+			get
+			{
+				return this.GetTable<PhanThi>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ChuDe> ChuDes
+		{
+			get
+			{
+				return this.GetTable<ChuDe>();
 			}
 		}
 	}
@@ -411,8 +444,6 @@ namespace DAL
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
 					this.OnMaQuyenChanging(value);
-                    //ForeignKeyReferenceAlreadyHasValueException assign thì ok , còn edit thì lỗi :(
-                    //Tham khảo link này http://stackoverflow.com/questions/3722254/foreignkeyreferencealreadyhasvalueexception-when-creating-lookups-using-linq-to
 					this.SendPropertyChanging();
 					this._MaQuyen = value;
 					this.SendPropertyChanged("MaQuyen");
@@ -471,6 +502,474 @@ namespace DAL
 						this._MaQuyen = default(int);
 					}
 					this.SendPropertyChanged("Quyen");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DeThi")]
+	public partial class DeThi : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaDe;
+		
+		private System.DateTime _NgayThi;
+		
+		private EntitySet<PhanThi> _PhanThis;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaDeChanging(int value);
+    partial void OnMaDeChanged();
+    partial void OnNgayThiChanging(System.DateTime value);
+    partial void OnNgayThiChanged();
+    #endregion
+		
+		public DeThi()
+		{
+			this._PhanThis = new EntitySet<PhanThi>(new Action<PhanThi>(this.attach_PhanThis), new Action<PhanThi>(this.detach_PhanThis));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaDe", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MaDe
+		{
+			get
+			{
+				return this._MaDe;
+			}
+			set
+			{
+				if ((this._MaDe != value))
+				{
+					this.OnMaDeChanging(value);
+					this.SendPropertyChanging();
+					this._MaDe = value;
+					this.SendPropertyChanged("MaDe");
+					this.OnMaDeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayThi", DbType="Date NOT NULL")]
+		public System.DateTime NgayThi
+		{
+			get
+			{
+				return this._NgayThi;
+			}
+			set
+			{
+				if ((this._NgayThi != value))
+				{
+					this.OnNgayThiChanging(value);
+					this.SendPropertyChanging();
+					this._NgayThi = value;
+					this.SendPropertyChanged("NgayThi");
+					this.OnNgayThiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DeThi_PhanThi", Storage="_PhanThis", ThisKey="MaDe", OtherKey="MaDe")]
+		public EntitySet<PhanThi> PhanThis
+		{
+			get
+			{
+				return this._PhanThis;
+			}
+			set
+			{
+				this._PhanThis.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PhanThis(PhanThi entity)
+		{
+			this.SendPropertyChanging();
+			entity.DeThi = this;
+		}
+		
+		private void detach_PhanThis(PhanThi entity)
+		{
+			this.SendPropertyChanging();
+			entity.DeThi = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PhanThi")]
+	public partial class PhanThi : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaPT;
+		
+		private int _MaLoai;
+		
+		private int _MaDe;
+		
+		private EntitySet<ChuDe> _ChuDes;
+		
+		private EntityRef<DeThi> _DeThi;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaPTChanging(int value);
+    partial void OnMaPTChanged();
+    partial void OnMaLoaiChanging(int value);
+    partial void OnMaLoaiChanged();
+    partial void OnMaDeChanging(int value);
+    partial void OnMaDeChanged();
+    #endregion
+		
+		public PhanThi()
+		{
+			this._ChuDes = new EntitySet<ChuDe>(new Action<ChuDe>(this.attach_ChuDes), new Action<ChuDe>(this.detach_ChuDes));
+			this._DeThi = default(EntityRef<DeThi>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaPT", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MaPT
+		{
+			get
+			{
+				return this._MaPT;
+			}
+			set
+			{
+				if ((this._MaPT != value))
+				{
+					this.OnMaPTChanging(value);
+					this.SendPropertyChanging();
+					this._MaPT = value;
+					this.SendPropertyChanged("MaPT");
+					this.OnMaPTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaLoai", DbType="Int NOT NULL")]
+		public int MaLoai
+		{
+			get
+			{
+				return this._MaLoai;
+			}
+			set
+			{
+				if ((this._MaLoai != value))
+				{
+					this.OnMaLoaiChanging(value);
+					this.SendPropertyChanging();
+					this._MaLoai = value;
+					this.SendPropertyChanged("MaLoai");
+					this.OnMaLoaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaDe", DbType="Int NOT NULL")]
+		public int MaDe
+		{
+			get
+			{
+				return this._MaDe;
+			}
+			set
+			{
+				if ((this._MaDe != value))
+				{
+					if (this._DeThi.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaDeChanging(value);
+					this.SendPropertyChanging();
+					this._MaDe = value;
+					this.SendPropertyChanged("MaDe");
+					this.OnMaDeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PhanThi_ChuDe", Storage="_ChuDes", ThisKey="MaPT", OtherKey="MaPT")]
+		public EntitySet<ChuDe> ChuDes
+		{
+			get
+			{
+				return this._ChuDes;
+			}
+			set
+			{
+				this._ChuDes.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DeThi_PhanThi", Storage="_DeThi", ThisKey="MaDe", OtherKey="MaDe", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public DeThi DeThi
+		{
+			get
+			{
+				return this._DeThi.Entity;
+			}
+			set
+			{
+				DeThi previousValue = this._DeThi.Entity;
+				if (((previousValue != value) 
+							|| (this._DeThi.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DeThi.Entity = null;
+						previousValue.PhanThis.Remove(this);
+					}
+					this._DeThi.Entity = value;
+					if ((value != null))
+					{
+						value.PhanThis.Add(this);
+						this._MaDe = value.MaDe;
+					}
+					else
+					{
+						this._MaDe = default(int);
+					}
+					this.SendPropertyChanged("DeThi");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ChuDes(ChuDe entity)
+		{
+			this.SendPropertyChanging();
+			entity.PhanThi = this;
+		}
+		
+		private void detach_ChuDes(ChuDe entity)
+		{
+			this.SendPropertyChanging();
+			entity.PhanThi = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ChuDe")]
+	public partial class ChuDe : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaCD;
+		
+		private string _Text;
+		
+		private string _Audio;
+		
+		private int _MaPT;
+		
+		private EntityRef<PhanThi> _PhanThi;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaCDChanging(int value);
+    partial void OnMaCDChanged();
+    partial void OnTextChanging(string value);
+    partial void OnTextChanged();
+    partial void OnAudioChanging(string value);
+    partial void OnAudioChanged();
+    partial void OnMaPTChanging(int value);
+    partial void OnMaPTChanged();
+    #endregion
+		
+		public ChuDe()
+		{
+			this._PhanThi = default(EntityRef<PhanThi>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaCD", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MaCD
+		{
+			get
+			{
+				return this._MaCD;
+			}
+			set
+			{
+				if ((this._MaCD != value))
+				{
+					this.OnMaCDChanging(value);
+					this.SendPropertyChanging();
+					this._MaCD = value;
+					this.SendPropertyChanged("MaCD");
+					this.OnMaCDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="VarChar(MAX)")]
+		public string Text
+		{
+			get
+			{
+				return this._Text;
+			}
+			set
+			{
+				if ((this._Text != value))
+				{
+					this.OnTextChanging(value);
+					this.SendPropertyChanging();
+					this._Text = value;
+					this.SendPropertyChanged("Text");
+					this.OnTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Audio", DbType="VarChar(255)")]
+		public string Audio
+		{
+			get
+			{
+				return this._Audio;
+			}
+			set
+			{
+				if ((this._Audio != value))
+				{
+					this.OnAudioChanging(value);
+					this.SendPropertyChanging();
+					this._Audio = value;
+					this.SendPropertyChanged("Audio");
+					this.OnAudioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaPT", DbType="Int NOT NULL")]
+		public int MaPT
+		{
+			get
+			{
+				return this._MaPT;
+			}
+			set
+			{
+				if ((this._MaPT != value))
+				{
+					if (this._PhanThi.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaPTChanging(value);
+					this.SendPropertyChanging();
+					this._MaPT = value;
+					this.SendPropertyChanged("MaPT");
+					this.OnMaPTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PhanThi_ChuDe", Storage="_PhanThi", ThisKey="MaPT", OtherKey="MaPT", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public PhanThi PhanThi
+		{
+			get
+			{
+				return this._PhanThi.Entity;
+			}
+			set
+			{
+				PhanThi previousValue = this._PhanThi.Entity;
+				if (((previousValue != value) 
+							|| (this._PhanThi.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PhanThi.Entity = null;
+						previousValue.ChuDes.Remove(this);
+					}
+					this._PhanThi.Entity = value;
+					if ((value != null))
+					{
+						value.ChuDes.Add(this);
+						this._MaPT = value.MaPT;
+					}
+					else
+					{
+						this._MaPT = default(int);
+					}
+					this.SendPropertyChanged("PhanThi");
 				}
 			}
 		}

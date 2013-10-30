@@ -63,6 +63,9 @@
     <Compile Include="HinhAnhConverter.cs" />
     <Compile Include="NDImagePathConverter.cs" />
     <Compile Include="TenQuyenConverter.cs" />
+    <Compile Include="TrangDeThi.xaml.cs">
+      <DependentUpon>TrangDeThi.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TrangNguoiDung.xaml.cs">
       <DependentUpon>TrangNguoiDung.xaml</DependentUpon>
     </Compile>
@@ -102,10 +105,27 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="TrangDeThi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TrangNguoiDung.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DeThiIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="document_add.png" />
+    <Resource Include="document_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="listening.png" />
+    <Resource Include="reading.png" />
+    <Resource Include="speaking.png" />
+    <Resource Include="writing.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

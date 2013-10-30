@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChuDeBLL.cs" />
+    <Compile Include="DeThiBLL.cs" />
     <Compile Include="NguoiDungBLL.cs" />
+    <Compile Include="PhanThiBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicMethods.cs" />
     <Compile Include="QuyenBLL.cs" />

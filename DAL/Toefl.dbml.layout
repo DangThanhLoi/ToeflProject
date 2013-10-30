@@ -14,11 +14,43 @@
         <elementListCompartment Id="f023e601-6366-46b4-912f-80c81d0492c8" absoluteBounds="2.015, 1.335, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.75 : 1.75525024414063); (4 : 1.75525024414063)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.75 : 1.75525024414063); (4 : 1.75525024414063)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ToeflDataContext/Quyen/Quyen_NguoiDung" />
       <nodes>
         <classShapeMoniker Id="ed55cca2-26ad-4eba-949b-803cd3da3c3e" />
         <classShapeMoniker Id="e6ee709c-eca5-43f9-8b40-0f1f13028f58" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="87f37260-66ba-4af0-bb59-e59f196ba25b" absoluteBounds="2, 3.25, 2, 1.0961531575520833">
+      <DataClassMoniker Name="/ToeflDataContext/DeThi" />
+      <nestedChildShapes>
+        <elementListCompartment Id="971ea039-b571-4006-ae95-7b3302bd7ae4" absoluteBounds="2.0149999999999997, 3.71, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b3601dfa-b0bd-466a-be91-d62692bdd2cd" absoluteBounds="4.75, 3.25, 2, 1.2605004882812496">
+      <DataClassMoniker Name="/ToeflDataContext/PhanThi" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6de14eaf-051e-4350-a7c4-57036bdbddce" absoluteBounds="4.765, 3.71, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4 : 3.79807657877604); (4.75 : 3.79807657877604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ToeflDataContext/DeThi/DeThi_PhanThi" />
+      <nodes>
+        <classShapeMoniker Id="87f37260-66ba-4af0-bb59-e59f196ba25b" />
+        <classShapeMoniker Id="b3601dfa-b0bd-466a-be91-d62692bdd2cd" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="7a56d659-8c23-4d8c-bbd2-b756d332dc90" absoluteBounds="4.75, 4.875, 2, 1.4248478190104168">
+      <DataClassMoniker Name="/ToeflDataContext/ChuDe" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0af1dbd1-293a-4570-9f78-fd22013b2828" absoluteBounds="4.765, 5.335, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.75 : 4.51050048828125); (5.75 : 4.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ToeflDataContext/PhanThi/PhanThi_ChuDe" />
+      <nodes>
+        <classShapeMoniker Id="b3601dfa-b0bd-466a-be91-d62692bdd2cd" />
+        <classShapeMoniker Id="7a56d659-8c23-4d8c-bbd2-b756d332dc90" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
