@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ToeflProject.TrangDeThi"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Trang Đề thi" SizeToContent="WidthAndHeight">
+        Title="Trang Đề thi" SizeToContent="WidthAndHeight" Closing="Window_Closing" ResizeMode="NoResize" WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Gray"></Setter>
@@ -9,13 +9,17 @@
             <Setter Property="CornerRadius" Value="4"></Setter>
             <Setter Property="Padding" Value="2"></Setter>
         </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="2"></Setter>
+        </Style>
         <DataTemplate x:Key="listDethiDataTemplate">
             <Border Margin="2">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" AllowDrop="True">
                     <Image Margin="2" Source="DeThiIcon.png"></Image>
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="{Binding Path=MaDe, StringFormat='Đề thi số {0}'}"></TextBlock>
-                        <TextBlock Text="{Binding Path=NgayThi, StringFormat='Ngày {0}', Converter={StaticResource ResourceKey=DateTimeConverter}}"></TextBlock>
+                        <TextBlock Text="Ngày thi"></TextBlock>
+                        <DatePicker SelectedDate="{Binding Path=NgayThi}"></DatePicker>
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -33,12 +37,12 @@
                                 <Setter Property="Margin" Value="2"></Setter>
                             </Style>
                         </StackPanel.Resources>
-                        <Button ToolTip="Thêm Đề thi">
+                        <Button ToolTip="Thêm Đề thi" x:Name="btnThemDeThi" Click="btnThemDeThi_Click">
                             <Button.Content>
                                 <Image Source="document_add.png"></Image>
                             </Button.Content>
                         </Button>
-                        <Button ToolTip="Xóa đề thi">
+                        <Button ToolTip="Xóa đề thi" x:Name="btnXoaDeThi" Click="btnXoaDeThi_Click">
                             <Button.Content>
                                 <Image Source="document_delete.png"></Image>
                             </Button.Content>
@@ -48,7 +52,87 @@
             </StackPanel>
         </Border>
         <Border>
-            <DataGrid x:Name="dataGridChuDe" AutoGenerateColumns="True" ItemsSource="{Binding}"></DataGrid>
+            <DataGrid x:Name="dataGridChuDe" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionMode="Single" MouseDown="dataGridChuDe_MouseDown">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã Chủ đề" IsReadOnly="True" Binding="{Binding Path=MaCD}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Chủ đề đoạn văn">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Width="400" Text="{Binding Path=Text}" Padding="0,0,0,5"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Width="400" AcceptsReturn="True" Padding="0,0,0,5" AcceptsTab="True" Text="{Binding Path=Text, Mode=TwoWay}"></TextBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Bài nghe">
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Margin="2" Text="{Binding Path=Audio}" IsReadOnly="True" Width="200"></TextBox>
+                                    <Button Content="..."></Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <StackPanel.Triggers>
+                                        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnPlay">
+                                            <EventTrigger.Actions>
+                                                <BeginStoryboard x:Name="MediaStoryboard">
+                                                    <BeginStoryboard.Storyboard>
+                                                        <Storyboard>
+                                                            <MediaTimeline Storyboard.TargetName="media" Source="{Binding Path=Audio, Converter={StaticResource ResourceKey=AmThanhConverter}}"></MediaTimeline>
+                                                        </Storyboard>
+                                                    </BeginStoryboard.Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnStop">
+                                            <EventTrigger.Actions>
+                                                <StopStoryboard BeginStoryboardName="MediaStoryboard"></StopStoryboard>
+                                            </EventTrigger.Actions>
+                                        </EventTrigger>
+                                    </StackPanel.Triggers>
+                                    <MediaElement x:Name="media" LoadedBehavior="Manual"></MediaElement>
+                                    <Button Width="32" x:Name="btnPlay">
+                                        <Button.Content>
+                                            <Image Source="Play.png"></Image>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button Width="32" x:Name="btnStop">
+                                        <Button.Content>
+                                            <Image Source="stop.png"></Image>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridComboBoxColumn Header="Loại phần thi" x:Name="cboLoai" ItemsSource="{Binding}" DisplayMemberPath="TenLoai" SelectedValuePath="MaLoai" SelectedValueBinding="{Binding Path=MaPT, IsAsync=True, Mode=TwoWay, Converter={StaticResource ResourceKey=LoaiConverter}}"></DataGridComboBoxColumn>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="SteelBlue">
+                            <GroupBox Header="Câu hỏi và đáp án">
+                                <StackPanel Orientation="Horizontal">
+                                    <ListBox x:Name="lstCauHoi" ItemsSource="{Binding Path=CauHois}" DisplayMemberPath="NoiDung" Margin="0,0,5,0"></ListBox>
+                                    <DataGrid x:Name="dataGridDapAn" ItemsSource="{Binding ElementName=lstCauHoi, Path=SelectedItem.DapAns}" AutoGenerateColumns="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Nội dung đáp án" Binding="{Binding Path=NoiDung}"></DataGridTextColumn>
+                                            <DataGridCheckBoxColumn Header="Đáp án đúng" Binding="{Binding Path=TrangThai}"></DataGridCheckBoxColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </GroupBox>
+                            
+                        </Border>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
         </Border>
     </StackPanel>
 </Window>

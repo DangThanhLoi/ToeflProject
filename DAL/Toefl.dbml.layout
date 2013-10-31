@@ -33,7 +33,7 @@
         <elementListCompartment Id="6de14eaf-051e-4350-a7c4-57036bdbddce" absoluteBounds="4.765, 3.71, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4 : 3.79807657877604); (4.75 : 3.79807657877604)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4 : 3.79807657877604); (4.75 : 3.79807657877604)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ToeflDataContext/DeThi/DeThi_PhanThi" />
       <nodes>
         <classShapeMoniker Id="87f37260-66ba-4af0-bb59-e59f196ba25b" />
@@ -46,11 +46,50 @@
         <elementListCompartment Id="0af1dbd1-293a-4570-9f78-fd22013b2828" absoluteBounds="4.765, 5.335, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.75 : 4.51050048828125); (5.75 : 4.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.75 : 4.51050048828125); (5.75 : 4.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ToeflDataContext/PhanThi/PhanThi_ChuDe" />
       <nodes>
         <classShapeMoniker Id="b3601dfa-b0bd-466a-be91-d62692bdd2cd" />
         <classShapeMoniker Id="7a56d659-8c23-4d8c-bbd2-b756d332dc90" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="15305982-6003-48ef-9b35-9a34335919df" absoluteBounds="7.5, 3.25, 2, 1.26050048828125">
+      <DataClassMoniker Name="/ToeflDataContext/Loai" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d3143c34-7aa1-4fca-91ad-11d5165aa925" absoluteBounds="7.5150000000000006, 3.71, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.5 : 3.88025024414062); (6.75 : 3.88025024414062)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ToeflDataContext/Loai/Loai_PhanThi" />
+      <nodes>
+        <classShapeMoniker Id="15305982-6003-48ef-9b35-9a34335919df" />
+        <classShapeMoniker Id="b3601dfa-b0bd-466a-be91-d62692bdd2cd" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c71191cf-c62c-429c-ac90-d87bc0783023" absoluteBounds="7.625, 4.875, 2, 1.26050048828125">
+      <DataClassMoniker Name="/ToeflDataContext/CauHoi" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d61c6a0b-4057-4520-9a6a-c850ae50e433" absoluteBounds="7.6400000000000006, 5.335, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.75 : 5.50525024414063); (7.625 : 5.50525024414063)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ToeflDataContext/ChuDe/ChuDe_CauHoi" />
+      <nodes>
+        <classShapeMoniker Id="7a56d659-8c23-4d8c-bbd2-b756d332dc90" />
+        <classShapeMoniker Id="c71191cf-c62c-429c-ac90-d87bc0783023" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="66407d41-cd65-4aea-bc68-2635211fa75b" absoluteBounds="7.625, 6.625, 2, 1.4248478190104168">
+      <DataClassMoniker Name="/ToeflDataContext/DapAn" />
+      <nestedChildShapes>
+        <elementListCompartment Id="84ee8ae3-117a-4240-a33b-6855a54203fd" absoluteBounds="7.64, 7.085, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.625 : 6.13550048828125); (8.625 : 6.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ToeflDataContext/CauHoi/CauHoi_DapAn" />
+      <nodes>
+        <classShapeMoniker Id="c71191cf-c62c-429c-ac90-d87bc0783023" />
+        <classShapeMoniker Id="66407d41-cd65-4aea-bc68-2635211fa75b" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

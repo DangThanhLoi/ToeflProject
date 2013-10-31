@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,12 +56,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AmThanhConverter.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DateTimeConverter.cs" />
     <Compile Include="HinhAnhConverter.cs" />
+    <Compile Include="LoaiConverter.cs" />
+    <Compile Include="LoaiImageConverter.cs" />
     <Compile Include="NDImagePathConverter.cs" />
     <Compile Include="TenQuyenConverter.cs" />
     <Compile Include="TrangDeThi.xaml.cs">
@@ -126,6 +130,13 @@
     <Resource Include="reading.png" />
     <Resource Include="speaking.png" />
     <Resource Include="writing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pause.png" />
+    <Resource Include="stop.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

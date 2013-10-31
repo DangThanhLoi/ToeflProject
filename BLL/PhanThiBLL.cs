@@ -22,6 +22,7 @@ namespace BLL
         public List<PhanThi> LayPhanThi(int maDe) {
             return _context.PhanThis.Where(pt => pt.MaDe.Equals(maDe)).ToList();
         }
+        // Mỗi đề có 4 phần thi => dựa vào mã đề + mã loại có thể xác định chính xác phần thi
         public PhanThi LayPhanThi(int maDe, int maLoai) {
             return this.LayPhanThi(maDe).Where(pt => pt.MaLoai.Equals(maLoai)).FirstOrDefault();
         }

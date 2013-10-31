@@ -35,6 +35,7 @@
       <Column Name="MaDe" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="PhanThi_ChuDe" Member="ChuDes" ThisKey="MaPT" OtherKey="MaPT" Type="ChuDe" />
       <Association Name="DeThi_PhanThi" Member="DeThi" ThisKey="MaDe" OtherKey="MaDe" Type="DeThi" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Loai_PhanThi" Member="Loai" ThisKey="MaLoai" OtherKey="MaLoai" Type="Loai" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.ChuDe" Member="ChuDes">
@@ -43,7 +44,34 @@
       <Column Name="Text" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Audio" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="MaPT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ChuDe_CauHoi" Member="CauHois" ThisKey="MaCD" OtherKey="MaCD" Type="CauHoi" />
       <Association Name="PhanThi_ChuDe" Member="PhanThi" ThisKey="MaPT" OtherKey="MaPT" Type="PhanThi" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Loai" Member="Loais">
+    <Type Name="Loai">
+      <Column Name="MaLoai" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenLoai" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="HuongDan" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Loai_PhanThi" Member="PhanThis" ThisKey="MaLoai" OtherKey="MaLoai" Type="PhanThi" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CauHoi" Member="CauHois">
+    <Type Name="CauHoi">
+      <Column Name="MaCH" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MaCD" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NoiDung" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="CauHoi_DapAn" Member="DapAns" ThisKey="MaCH" OtherKey="MaCH" Type="DapAn" />
+      <Association Name="ChuDe_CauHoi" Member="ChuDe" ThisKey="MaCD" OtherKey="MaCD" Type="ChuDe" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DapAn" Member="DapAns">
+    <Type Name="DapAn">
+      <Column Name="MaDA" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MaCH" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NoiDung" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="TrangThai" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="CauHoi_DapAn" Member="CauHoi" ThisKey="MaCH" OtherKey="MaCH" Type="CauHoi" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>

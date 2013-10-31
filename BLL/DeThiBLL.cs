@@ -15,5 +15,11 @@ namespace BLL
         public List<DeThi> LayTatCa() {
             return _context.DeThis.ToList();
         }
+        public void ThemDeThi(DeThi dt) {
+            _context.DeThis.InsertOnSubmit(dt);
+        }
+        public void XoaDeThi(DeThi dt) {
+            _context.DeThis.DeleteOnSubmit(dt);
+        }
     }
 }

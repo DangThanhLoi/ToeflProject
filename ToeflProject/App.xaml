@@ -5,5 +5,8 @@
              StartupUri="TrangDeThi.xaml">
     <Application.Resources>
         <local:DateTimeConverter x:Key="DateTimeConverter"></local:DateTimeConverter>
+        <local:AmThanhConverter x:Key="AmThanhConverter"></local:AmThanhConverter>
+        <local:LoaiConverter x:Key="LoaiConverter"></local:LoaiConverter>
+        <local:LoaiImageConverter x:Key="LoaiImageConverter"></local:LoaiImageConverter>
     </Application.Resources>
 </Application>

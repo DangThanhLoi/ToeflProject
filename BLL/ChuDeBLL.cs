@@ -26,5 +26,14 @@ namespace BLL
             }
             return newList;
         }
+        public void ThemChuDe(ChuDe cd) {
+            _context.ChuDes.InsertOnSubmit(cd);
+        }
+        public void ThemChuDe(List<ChuDe> cds) {
+            _context.ChuDes.InsertAllOnSubmit(cds);
+        }
+        public void XoaChuDe(ChuDe cd) {
+            _context.ChuDes.DeleteOnSubmit(cd);
+        }
     }
 }
