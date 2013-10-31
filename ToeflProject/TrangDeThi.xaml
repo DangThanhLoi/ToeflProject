@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ToeflProject.TrangDeThi"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Trang Đề thi" SizeToContent="WidthAndHeight" Closing="Window_Closing" ResizeMode="NoResize" WindowState="Maximized">
+        Title="Trang Đề thi" SizeToContent="WidthAndHeight" Closing="Window_Closing" WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="Gray"></Setter>
@@ -52,7 +52,7 @@
             </StackPanel>
         </Border>
         <Border>
-            <DataGrid x:Name="dataGridChuDe" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionMode="Single" MouseDown="dataGridChuDe_MouseDown">
+            <DataGrid x:Name="dataGridChuDe" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionMode="Single" MouseDown="dataGridChuDe_MouseDown" SelectionChanged="dataGridChuDe_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Mã Chủ đề" IsReadOnly="True" Binding="{Binding Path=MaCD}"></DataGridTextColumn>
                     <DataGridTemplateColumn Header="Chủ đề đoạn văn">
@@ -114,25 +114,58 @@
                     </DataGridTemplateColumn>
                     <DataGridComboBoxColumn Header="Loại phần thi" x:Name="cboLoai" ItemsSource="{Binding}" DisplayMemberPath="TenLoai" SelectedValuePath="MaLoai" SelectedValueBinding="{Binding Path=MaPT, IsAsync=True, Mode=TwoWay, Converter={StaticResource ResourceKey=LoaiConverter}}"></DataGridComboBoxColumn>
                 </DataGrid.Columns>
-                <DataGrid.RowDetailsTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="SteelBlue">
-                            <GroupBox Header="Câu hỏi và đáp án">
-                                <StackPanel Orientation="Horizontal">
-                                    <ListBox x:Name="lstCauHoi" ItemsSource="{Binding Path=CauHois}" DisplayMemberPath="NoiDung" Margin="0,0,5,0"></ListBox>
-                                    <DataGrid x:Name="dataGridDapAn" ItemsSource="{Binding ElementName=lstCauHoi, Path=SelectedItem.DapAns}" AutoGenerateColumns="False">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Nội dung đáp án" Binding="{Binding Path=NoiDung}"></DataGridTextColumn>
-                                            <DataGridCheckBoxColumn Header="Đáp án đúng" Binding="{Binding Path=TrangThai}"></DataGridCheckBoxColumn>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </StackPanel>
-                            </GroupBox>
-                            
-                        </Border>
-                    </DataTemplate>
-                </DataGrid.RowDetailsTemplate>
             </DataGrid>
+        </Border>
+        <Border BorderBrush="SteelBlue">
+            <GroupBox>
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="FAQ.png" Width="32"></Image>
+                        <TextBlock Text="Câu hỏi - Đáp án"></TextBlock>
+                    </StackPanel>
+                </GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel.Resources>
+                            <DataTemplate x:Key="templateCauHoi">
+                                <Border>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Width="24" Source="question.png"></Image>
+                                        <TextBox AcceptsReturn="True" Width="200" Text="{Binding Path=NoiDung}"></TextBox>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </StackPanel.Resources>
+                        <ListBox  x:Name="lstCauHoi" ItemsSource="{Binding}" ItemTemplate="{StaticResource ResourceKey=templateCauHoi}" Margin="0,0,5,0"></ListBox>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <Button Width="24" ToolTip="Thêm Câu hỏi" x:Name="btnThemCauHoi" Click="btnThemCauHoi_Click">
+                                <Button.Content>
+                                    <Image Source="document_add.png"></Image>
+                                </Button.Content>
+                            </Button>
+                            <Button Width="24" ToolTip="Xóa Câu hỏi" x:Name="btnXoaCauHoi" Click="btnXoaCauHoi_Click">
+                                <Button.Content>
+                                    <Image Source="document_delete.png"></Image>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <DataGrid x:Name="dataGridDapAn" ItemsSource="{Binding ElementName=lstCauHoi, Path=SelectedItem.DapAns}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Width="16" Source="dapan.png"></Image>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Nội dung đáp án" Binding="{Binding Path=NoiDung}"></DataGridTextColumn>
+                            <DataGridCheckBoxColumn Header="Đáp án đúng" Binding="{Binding Path=TrangThai}"></DataGridCheckBoxColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </GroupBox>
+
         </Border>
     </StackPanel>
 </Window>
